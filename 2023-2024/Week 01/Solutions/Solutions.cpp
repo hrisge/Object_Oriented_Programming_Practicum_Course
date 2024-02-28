@@ -1,7 +1,9 @@
 #include <iostream>
+#include <cstdint>
 
 const constexpr int NAME_LEN = 17;
 const constexpr int MAX_LEN = 1024;
+const constexpr int MAX_STUDENTS = 1024;
 
 unsigned myStrlen(const char* str)
 {
@@ -60,7 +62,7 @@ struct Student
 	char name[NAME_LEN];
 	char lastName[NAME_LEN];
 	unsigned fn;
-	double averagGrades;
+	double averageGrades;
 	Specialty spec;
 };
 
@@ -105,7 +107,7 @@ Specialty getSpecialtyFromConsole()
 void printStudent(const Student& st)
 {
 	std::cout << "Name: "<< st.name<<"\nLast Name: "<<st.lastName<<"\nFaculty Number: "<<st.fn<<"\nAverage Grades: "<<
-		st.averagGrades<<"\nSpeciality: ";
+		st.averageGrades<<"\nSpeciality: ";
 	printSpecialty(st.spec);
 	std::cout << std::endl;
 
@@ -126,7 +128,7 @@ Student initStudent(const char* name, const char* lastName, unsigned fn, double 
 		toReturn.fn = 0;
 
 	if (avGrade >= 2 && avGrade <= 6)
-		toReturn.averagGrades = avGrade;
+		toReturn.averageGrades = avGrade;
 
 	toReturn.spec = spec;
 	return toReturn;
@@ -149,7 +151,65 @@ Student initStudentFromConsole()
 	spec = getSpecialtyFromConsole();
 	return initStudent(name, lastName, fn, averagGrades, spec);
 }
-int main()
-{
 
+
+struct StudentGroup {
+    Student students[MAX_STUDENTS];
+    int studentsCount;
+    double averageGrade;
+};
+
+StudentGroup initStudentGroupFromConsole() {
+    int size;
+    std::cin >> size;
+    if (size > MAX_STUDENTS) {
+        return StudentGroup{};
+    }
+
+    StudentGroup group;
+    group.studentsCount = size;
+
+    double totalGrade = 0;
+    for (int i = 0; i < size; i++) {
+        group.students[i] = initStudentFromConsole();
+        totalGrade += group.students[i].averageGrades;
+    }
+
+    group.averageGrade = totalGrade / size;
+    return group;
+}
+
+int getScholarshipCount(const StudentGroup& group, double minGrade) {
+    int count = 0;
+    for (int i = 0; i < group.studentsCount; i++) {
+        if (group.students[i].averageGrades >= minGrade) {
+            count++;
+        }
+    }
+    return count;
+}
+
+void swapStudents(Student& a, Student& b) {
+    Student temp = a;
+    a = b;
+    b = temp;
+}
+
+bool compareStudents(const Student& a, const Student& b) {
+    if (a.averageGrades < b.averageGrades) {
+        return true;
+    } else if (a.averageGrades == b.averageGrades) {
+        return a.fn > b.fn;
+    }
+    return false;
+}
+
+void sortStudents(StudentGroup& group) {
+    for (int i = 0; i < group.studentsCount; i++) {
+        for (int j = i + 1; j < group.studentsCount; j++) {
+            if (compareStudents(group.students[i], group.students[j])) {
+                swapStudents(group.students[i], group.students[j]);
+            }
+        }
+    }
 }
