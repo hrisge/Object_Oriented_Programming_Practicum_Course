@@ -108,7 +108,10 @@ int strcmp(const char* str1, const char* str2) {
 	}
 }
 
-//Bubble Sort, O(n^2), стабилен
+//Bubble Sort
+//сложност по време - O(n^2)
+//сложност по памен - O(1)
+//стабилен
 void sortByAddress(Order* orders, size_t size) {
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size - i - 1; j++) {
