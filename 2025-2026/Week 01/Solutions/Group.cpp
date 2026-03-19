@@ -76,6 +76,10 @@ size_t findMinFnIndexFrom(const Group& group, size_t start) {
 	return minInd;
 }
 
+//Selection Sort
+//сложност по време - O(n^2)
+//сложност по памет - О(1)
+//стабилен
 void sortByFn(Group& group) {
 	for (size_t i = 0; i < group.size; i++) {
 		size_t minInd = findMinFnIndexFrom(group, i);

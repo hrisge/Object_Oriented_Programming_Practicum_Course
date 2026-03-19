@@ -27,7 +27,7 @@ flip([](int x, int y){return x-y;})(2, 1); // = -1
 ```
 
 # Задача 5.
-Да се напише шаблонна функция void sortBy(T\* arr, std::function<bool(const T&)> f), която приема масив от произволен тип и го сортира спрямо някакво свойство на елементите на масива.
+Да се напише шаблонна функция void sortBy(T\* arr, size_t size, std::function<bool(const T&)> f), която приема масив от произволен тип и го сортира спрямо някакво свойство на елементите на масива.
 
 ```
 int arr[5] = {1, 2, 3, 4, 5}
@@ -36,7 +36,7 @@ sortBy(arr, [](int x) -> {return x%2;})
 ```
 
 # Задача 6.
-Да се напише функция T accumulate(std::function<T(const U&, const T&)> op, const T& nv, std::function<int(const U&)> term, int a, int b), която работи по следния начин:
+Да се напише функция T accumulate(std::function<T(const U&, const T&)> op, const T& nv, std::function<U(int)> term, int a, int b), която работи по следния начин:
 
 ```
 accumulate(op, nv, term, a, b) = (term(a) op (term(a+1) op (... op (term(b) op nv)))...)

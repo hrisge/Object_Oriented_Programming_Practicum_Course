@@ -49,7 +49,7 @@ void shiftLeftFrom(Polynomial& p, size_t ind) {
 }
 
 //работи подобно на алгоритъм за вмъкване в сортиран масив, като освен това се грижи за
-//изразите с еднакви коефициенти и премахването на изрази с коефициент 0
+//изразите с еднакви eкспоненти и премахването на изрази с коефициент 0
 void addTerm(Polynomial& p, const Term& t) {
 	if (t.coefficient == 0) return;
 	for (size_t i = 0; i < p.size; i++) {

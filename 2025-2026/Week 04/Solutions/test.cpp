@@ -3,6 +3,8 @@
 
 //зад. 1
 size_t fileLen(std::istream& in) {
+	//std::istream не съдържа метода is_open, така че приемаме на готово, че потокът е коректен
+	//ако е std::ifstream, трябва да има проверка
     size_t result;
     size_t pos = in.tellg();
     in.seekg(0, std::ios::end);
@@ -31,12 +33,14 @@ struct Point {
 
 void savePoint(const Point& p) {
     std::ofstream out("points.bin", std::ios::in | std::ios::binary | std::ios::app);
+	if(!out.is_open()) return;
     out.write((char*)&p, sizeof(p));
     out.close();
 }
 
 size_t pointsCount() {
     std::ifstream in("points.bin", std::ios::out | std::ios::binary);
+	if(!in.is_open()) return 0;
     size_t result = fileLen(in)/sizeof(Point);
     in.close();
     return result;
@@ -47,6 +51,7 @@ void swapWithSymmetric() {
     Point* points = new Point[size];
 	
 	std::ifstream in("points.bin", std::ios::in | std::ios::binary);
+	if(!in.is_open()) return;
     in.read((char*)points, size * sizeof(Point));
     in.close();
     
@@ -55,6 +60,7 @@ void swapWithSymmetric() {
     }
 
     std::ofstream out("points.bin", std::ios::out | std::ios::binary);
+	if(!out.is_open()) return;
     out.write((char*)points, size * sizeof(Point));
     out.close();
 	
