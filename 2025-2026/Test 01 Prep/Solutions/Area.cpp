@@ -262,11 +262,11 @@ public:
 		return *this;
 	}
 	Area& sortNameLength() {
-		sortBy<size_t>([](const Location& l) {return strlen(l.getName()); });
+		sortBy<size_t>([](const Location& l) {return l.getName() ? strlen(l.getName()) : 0; });
 		return *this;
 	}
 	Area& sortDescriptionLength() {
-		sortBy<size_t>([](const Location& l) {return strlen(l.getDescription()); });
+		sortBy<size_t>([](const Location& l) {return l.getDescription() ? strlen(l.getDescription()) : 0; });
 		return *this;
 	}
 	Area& inCircle(double x, double y, double r) {
