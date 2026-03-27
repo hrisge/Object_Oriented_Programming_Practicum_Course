@@ -217,10 +217,10 @@ public:
 	Location& operator[](size_t ind) {
 		return *locations[ind];
 	}
-	const Location& operator[](size_t ind) const{
+	const Location& operator[](size_t ind) const {
 		return *locations[ind];
 	}
-	Area operator+(const Area& other) {
+	Area operator+(const Area& other) const {
 		Area result;
 		for (size_t i = 0; i < size; i++) {
 			result.addLocation(*locations[i]);
