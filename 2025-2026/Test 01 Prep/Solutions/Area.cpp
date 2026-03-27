@@ -150,7 +150,7 @@ class Area {
 	}
 
 	template <class T>
-	Location* minBy(std::function<T(const Location&)> p) const {
+	Location* minBy(const std::function<T(const Location&)>& p) const {
 		return minByFrom(0, p);
 	}
 
