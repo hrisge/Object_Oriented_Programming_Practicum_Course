@@ -5,6 +5,7 @@ void Matrix::copy(const Matrix& other)
     rows = other.rows;
     cols = other.cols;
     allocate();
+    map([&other](int i, int j) {return other[i][j]; });
 }
 
 void Matrix::free()
@@ -122,7 +123,9 @@ Matrix Matrix::operator*(const Matrix& other)
 
 Matrix& Matrix::operator*=(int number)
 {
+	if (this->cols != other.rows) return *this;
     map([this, &number](int i, int j) {return matrix[i][j]*number; });
+    return *this;
 }
 
 Matrix Matrix::operator*(int number) const
@@ -146,7 +149,7 @@ int*& Matrix::operator[](size_t row)
     return matrix[row];
 }
 
-const int*& const Matrix::operator[](size_t row) const
+int*& const Matrix::operator[](size_t row) const
 {
     return matrix[row];
 }

@@ -27,7 +27,7 @@ public:
 	bool operator==(const Matrix& other) const;
 	bool operator!=(const Matrix& other) const;
 	int*& operator[](size_t row);
-	const int*& const operator[] (size_t row) const;
+	int*& const operator[] (size_t row) const;
 };
 
 
