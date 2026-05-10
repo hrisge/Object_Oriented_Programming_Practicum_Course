@@ -4,25 +4,12 @@
 class UnaryRegularOperation : public RegularExpression{
 protected:
     RegularExpression* expr;
-    void free() {
-        delete expr;
-    }
-    void copy(const UnaryRegularOperation& other) {
-        expr = other.expr->clone();
-    }
+    void free();
+    void copy(const UnaryRegularOperation &other);
 
-public:
-    UnaryRegularOperation(const RegularExpression& expr) : expr(expr.clone()) {}
-    UnaryRegularOperation(const UnaryRegularOperation& other) {
-        copy(other);
-    }
-    UnaryRegularOperation& operator=(const UnaryRegularOperation& other) {
-        if(this == &other) return *this;
-        free();
-        copy(other);
-        return *this;
-    }
-    ~UnaryRegularOperation() override {
-        free();
-    }
+  public:
+    UnaryRegularOperation(const RegularExpression &expr);
+    UnaryRegularOperation(const UnaryRegularOperation &other);
+    UnaryRegularOperation &operator=(const UnaryRegularOperation &other);
+    ~UnaryRegularOperation() override;
 };
