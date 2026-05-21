@@ -37,6 +37,6 @@ public:
 
   const T& top() const{
     if(empty()) throw std::runtime_error("stack is empty");
-    return *vec.rbegin();
+    return vec[size() - 1];
   }
 };
